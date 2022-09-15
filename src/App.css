@@ -1,0 +1,15 @@
+.container {
+	flex-direction: column;
+	justify-content: space-between;
+	height: 100px;
+	display: flex;
+
+	align-items: center;
+	padding: 10px;
+	margin: 2rem;
+}
+
+.form-elements {
+	border: 1px solid;
+	padding: 10px;
+}
