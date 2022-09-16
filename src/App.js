@@ -5,6 +5,7 @@ import {
 	VALIDATOR_REQUIRE,
 } from "./validations/validation";
 
+import Button from "./shared/Button";
 import Input from "./shared/Input";
 
 const App = () => {
@@ -26,6 +27,7 @@ const App = () => {
 					label="Password"
 					id="password"
 				/>
+				<Button />
 			</div>
 		</form>
 	);
