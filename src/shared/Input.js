@@ -8,6 +8,7 @@ import { validation } from "../validations/validation";
 const initialFormState = {
 	email: { value: "", touched: false, isValid: false, error: "" },
 	password: { value: "", touched: false, isValid: false, error: "" },
+	isFormValid: false,
 };
 
 const formReducer = (state, action) => {
@@ -26,6 +27,20 @@ const formReducer = (state, action) => {
 				...state,
 				[action.name]: { ...state[action.name], touched: true },
 			};
+
+		case "formValid":
+			let isFormValid = true;
+			for (const inputId in state) {
+				if (inputId === action.id) {
+					isFormValid = isFormValid && state[inputId].isValid;
+				} else {
+					isFormValid = isFormValid && state[inputId].isValid;
+				}
+			}
+			return {
+				...state,
+				isFormValid: isFormValid,
+			};
 		default:
 			return state;
 	}
@@ -37,16 +52,15 @@ const Input = (props) => {
 	const [element, setElement] = useState();
 	const [valid, setValid] = useState(false);
 	const { type, name } = props;
-	const getIsValid = { ...formState[name] };
-	const { isValid } = getIsValid;
+
 	useEffect(() => {
 		setElement(type);
-		setValid(isValid);
-	}, [type, isValid]);
+	}, [type]);
 
 	const changeHandler = (name, e) => {
 		const value = e.target.value;
 		const id = name;
+		inputChangeHandler(id, value, valid);
 
 		dispatch({
 			type: "change",
@@ -55,7 +69,10 @@ const Input = (props) => {
 			validator: props.validator,
 		});
 
-		inputChangeHandler(id, value, valid);
+		dispatch({
+			type: "formValid",
+			id: name,
+		});
 	};
 	const onFocusHandler = (name) => {
 		dispatch({
