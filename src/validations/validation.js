@@ -13,7 +13,6 @@ export const validation = (value, validators) => {
 	let isValid = true;
 	for (let validator of validators) {
 		if (validator.type === VALIDATOR_TYPE_REQUIRE) {
-			debugger;
 			isValid = isValid && value.trim().length > 0;
 		}
 		if (validator.type === VALIDATOR_TYPE_MINLENGTH) {
